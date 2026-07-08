@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: _site
+
+execute:
+  freeze: auto
+
+website:
+  title: "Alhashim TidyTuesday"
+  site-url: "https://hashcx.github.io/TidyTuesday"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+    right:
+      - icon: github
+        href: https://github.com/hashcx/TidyTuesday
+      - icon: rss
+        href: index.xml
+
+format:
+  html:
+    theme: cosmo
+    toc: true

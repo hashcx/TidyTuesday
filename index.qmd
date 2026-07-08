@@ -1,0 +1,17 @@
+---
+title: "Alhashim TidyTuesday Journey"
+subtitle: "Weekly data visualization practice"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  fields: [image, date, title, description, categories]
+  feed:
+    items: 15
+    type: partial
+page-layout: full
+title-block-banner: false
+---
+
+Welcome! Each week I explore a new dataset from the [TidyTuesday](https://github.com/rfordatascience/tidytuesday) project.

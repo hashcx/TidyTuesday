@@ -1,0 +1,9 @@
+/.quarto/
+**/*.quarto_ipynb
+/_site/
+/renv/library/
+/renv/local/
+/renv/staging/
+.Rproj.user/
+.Rhistory
+.RData
