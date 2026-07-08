@@ -1,9 +1,8 @@
 ---
 title: "Demo Post"
-date: 2026-07-07
+date: 2026-07-06
 description: "One-liner about the dataset"
-image: thumbnail.png
-categories: [ggplot2, tidyverse]
+categories: [ggplot2, demo]
 execute:
   warning: false
   message: false
