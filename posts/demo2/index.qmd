@@ -1,0 +1,27 @@
+---
+title: "Demo Post 2"
+date: 2026-07-07
+description: "One-liner about the dataset"
+categories: [tidyverse, demo]
+execute:
+  warning: false
+  message: false
+---
+
+## Loading the data
+```{r}
+library(tidyverse)
+library(tidytuesdayR)
+tt <- tt_load("2026-07-07")
+df <- tt[[1]]
+```
+
+## Visualization
+```{r}
+#| fig-cap: "Caption"
+#| label: fig-main
+ggplot(df, aes(x = wins, y = losses)) +
+  geom_point() +
+  theme_minimal() +
+  labs(title = "Wins vs Losses", caption = "Source: TidyTuesday | 2026-07-07")
+```
