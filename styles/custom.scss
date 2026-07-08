@@ -1,13 +1,34 @@
 /*-- scss:defaults --*/
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@font-face {
+  font-family: "Inter";
+  src: url("styles/fonts/Inter-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("styles/fonts/Inter-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("styles/fonts/Inter-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("styles/fonts/Inter-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
 
 $font-family-sans-serif: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-
-// Slightly tighter heading weight for a modern look
 $headings-font-weight: 600;
-
-// A touch more letter-spacing on nav for a cleaner feel
-$navbar-brand-font-weight: 600;
 
 /*-- scss:rules --*/
 body {
@@ -15,6 +36,22 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3 {
+h1, 
+h2, 
+h3 {
   letter-spacing: -0.02em;
+}
+
+.navbar-brand,
+.quarto-title-banner .title,
+h1 .title {
+  color: var(--bs-body-color) !important;
+}
+
+.navbar {
+  height: 3.75rem;
+}
+
+html[data-bs-theme="dark"] .navbar-brand {
+  color: #f8f9fa !important;
 }

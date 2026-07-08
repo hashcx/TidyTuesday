@@ -22,5 +22,5 @@ format:
   html:
     theme:
       light: [zephyr, styles/custom.scss]
-      dark: [zephyr, darkly, styles/custom.scss]
+      dark: [darkly, styles/custom.scss]
     toc: true
