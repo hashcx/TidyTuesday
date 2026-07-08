@@ -1,0 +1,17 @@
+{
+  "hash": "34357ad8582c6639991561fd3bb0136b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Demo Post 2\"\ndate: 2026-07-07\ndescription: \"One-liner about the dataset\"\ncategories: [tidyverse, demo]\nexecute:\n  warning: false\n  message: false\n---\n\n## Loading the data\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nlibrary(tidytuesdayR)\ntt <- tt_load(\"2026-07-07\")\ndf <- tt[[1]]\n```\n:::\n\n\n## Visualization\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(df, aes(x = wins, y = losses)) +\n  geom_point() +\n  theme_minimal() +\n  labs(title = \"Wins vs Losses\", caption = \"Source: TidyTuesday | 2026-07-07\")\n```\n\n::: {.cell-output-display}\n![Caption](index_files/figure-html/fig-main-1.png){#fig-main width=672}\n:::\n:::\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
