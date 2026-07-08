@@ -20,5 +20,7 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme:
+      light: [zephyr, styles/custom.scss]
+      dark: [zephyr, darkly, styles/custom.scss]
     toc: true
