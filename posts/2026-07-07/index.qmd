@@ -1,0 +1,179 @@
+---
+title: "Week 27: UFC Athletes and Fight Data"
+date: 2026-07-07
+description: "First challenge, a lot of setup and exploration.  Incomplete."
+categories: [fightr]
+draft: false
+execute:
+  warning: false
+  message: false
+---
+
+[Challenge Page on GitHub](https://github.com/rfordatascience/tidytuesday/tree/main/data/2026/2026-07-07)
+
+## `fightr` Package
+
+```{r}
+#| eval: true
+
+library(fightr)
+```
+
+Trying the code examples on the [fightr package GitHub page](https://github.com/benyamindsmith/fightr/)
+
+```{r}
+#| eval: true
+
+# Loads from local cache, fetching updates automatically if needed
+athletes <- get_ufc_data("ufc_athletes")
+fights <- get_ufc_data("ufc_fights")
+
+# Force a manual refresh of all datasets
+update_all_ufc_data()
+```
+
+
+```{r}
+#| eval: true
+
+matchup_model <- model_fight_outcome(
+    fighter1 = "Islam Makhachev",
+    fighter2 = "Alexander Volkanovski",
+    method_type = "bradley-terry"
+)
+
+# The function returns an S3 object containing the fitted model and predictions
+print(matchup_model$method_probs)
+
+# Extract and display the probability chart
+matchup_model$plot
+```
+
+
+```{r}
+#| eval: true
+
+matchup_model <- model_fight_outcome(
+    fighter1 = "Islam Makhachev",
+    fighter2 = "Alexander Volkanovski",
+    method_type = "multinomial"
+)
+
+# The function returns an S3 object containing the fitted model and predictions
+print(matchup_model$method_probs)
+
+# Extract and display the probability chart
+matchup_model$plot
+```
+
+
+```{r}
+#| eval: true
+
+matchup_model <- model_fight_outcome(
+    fighter1 = "Islam Makhachev",
+    fighter2 = "Alexander Volkanovski",
+    method_type = "thurstone-mosteller"
+)
+
+# The function returns an S3 object containing the fitted model and predictions
+print(matchup_model$method_probs)
+
+# Extract and display the probability chart
+matchup_model$plot
+```
+
+### Probability Charts
+
+The three probability charts shows that the probability that Alexander Volkanovski wins Islam Makhachev using KO/TKO is ~22%, using Submission is no more than 6%, and using Decision is ~20%.
+
+### Technical Details
+
+The function `get_ufc_data` exists in [`R/update_ufc_data.R`](https://github.com/benyamindsmith/fightr/blob/main/R/update_ufc_data.R).  The function reads data stored as `RData` from [`data/`](https://github.com/benyamindsmith/fightr/tree/main/data).  These files get downloaded and cleaned via a set of `Shell`, `R` and `Python` scripts stored in [`scripts/`](https://github.com/benyamindsmith/fightr/tree/main/scripts).  These scripts are executed periodically using GitHub workflow actions as specified in the `yml` files in [`.github/workflows/`](https://github.com/benyamindsmith/fightr/tree/main/.github/workflows).
+
+
+## TidyTuesday Data
+
+The challenge include 5 datasets.
+
+```{r}
+#| eval: true
+
+local_file <- "tuesdata_cached.rds"
+
+if(file.exists(local_file)) {
+    message("Found local file! Loading cached data...")
+    tuesdata <- readRDS(local_file)
+} else {
+    message("Local file not found. Downloading from internet...")
+    tuesdata <- tidytuesdayR::tt_load('2026-07-07')
+    saveRDS(tuesdata, file = local_file)
+    message("Data downloaded and saved locally!")
+}
+
+tuesdata_small <- tuesdata$ufc_athletes
+```
+
+### EDA
+
+```{r}
+#| eval: true
+#| output: asis
+
+library(purrr)
+library(inspectdf)
+
+iwalk(tuesdata, function(df, name) {
+    cat("\n\n####", name, "(", nrow(df), "," , ncol(df), ")\n")
+
+    df |> inspect_types() |> show_plot() |> print()
+    df |> inspect_cat() |> show_plot() |> print()
+    df |> inspect_num() |> show_plot() |> print()
+})
+```
+
+```{r}
+#| eval: false
+
+library(dplyr)
+library(tidyselect)
+library(purrr)
+library(GGally)
+
+iwalk(tuesdata, function(df, name) {
+    cat("####", name, row(df), "," , col(df), "\n")
+
+    df_safe <- df |> 
+        select(where(~ is.numeric(.) || (is.character(.) && n_distinct(.) <= 15)))
+
+    ggpairs(df_safe) |> print()    
+})
+```
+
+
+```{r}
+#| eval: false
+#| results: asis
+
+library(summarytools)
+library(purrr)
+
+iwalk(tuesdata, function(df, name) {
+  cat("####", name, row(df), "," , col(df), "\n")
+
+
+  dfSummary(
+    df,
+    plain.ascii = FALSE,
+    style = "grid",
+    graph.magnif = 0.82,
+    varnumbers = FALSE,
+    valid.col = FALSE,
+    temp.img.dir = "/tmp",
+    round.digits = 2,
+    headings = FALSE,
+    display.labels = FALSE
+  ) |>
+    print()
+})
+```
