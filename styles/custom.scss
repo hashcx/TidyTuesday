@@ -55,3 +55,68 @@ h1 .title {
 html[data-bs-theme="dark"] .navbar-brand {
   color: #f8f9fa !important;
 }
+
+/* code-fold styling */
+details > summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--bs-primary);
+  padding: 0.4em 0.8em;
+  border: 1px solid var(--bs-border-color);
+  border-radius: 6px;
+  background-color: var(--bs-tertiary-bg);
+  display: inline-block;
+  margin-bottom: 0.5em;
+}
+
+details > summary:hover {
+  background-color: var(--bs-secondary-bg);
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details > summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 0.5em;
+  transition: transform 0.2s;
+}
+
+details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+
+a {
+  color: var(--bs-primary);
+  text-decoration: none;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.25s ease;
+}
+
+a:hover {
+  background-size: 100% 1px;
+}
+
+a[target="_blank"]::after {
+  content: "";
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  margin-left: 0.25em;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236c757d'%3E%3Cpath d='M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z'/%3E%3Cpath d='M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+  vertical-align: middle;
+  transition: opacity 0.2s ease;
+}
+
+a[target="_blank"]:hover::after {
+  opacity: 1;
+}
