@@ -1,5 +1,5 @@
 ---
-title: "Alhashim TidyTuesday Journey"
+title: "TidyTuesday Journey"
 subtitle: "Weekly data visualization practice"
 listing:
   contents: posts
@@ -14,4 +14,4 @@ page-layout: full
 title-block-banner: false
 ---
 
-Welcome! Each week I explore a new dataset from the [TidyTuesday](https://github.com/rfordatascience/tidytuesday) project.
+Welcome! This is a record of my attempts at the weakly  [TidyTuesday](https://github.com/rfordatascience/tidytuesday) challenges.
