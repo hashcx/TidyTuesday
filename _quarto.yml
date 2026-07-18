@@ -1,12 +1,13 @@
 project:
   type: website
   output-dir: _site
+  # execute-dir: project
 
 execute:
   freeze: auto
 
 website:
-  title: "Alhashim TidyTuesday"
+  title: "Amin G. Alhashim"
   site-url: "https://hashcx.github.io/TidyTuesday"
   navbar:
     left:
@@ -24,3 +25,5 @@ format:
       light: [zephyr, styles/custom.scss]
       dark: [darkly, styles/custom.scss]
     toc: true
+    code-fold: true
+    link-external-newwindow: true
