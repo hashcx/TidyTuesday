@@ -1,12 +1,9 @@
 ---
 title: "Week 28: Many Penguins"
 date: 2026-07-14
-description: "???"
+description: "More setup + explore EDA options"
 categories: [biology]
 draft: false
-execute:
-  warning: false
-  message: false
 ---
 
 [Challenge Page on GitHub](https://github.com/rfordatascience/tidytuesday/tree/main/data/2026/2026-07-14)
@@ -16,9 +13,11 @@ execute:
 - **Morphometric Data.** Quantitative (numerical) measurements of the form, shape, size, and structural features of organisms or objects.  In biology, ecology, and anthropology, it is used to precisely describe and compare the physical characteristics of different species, populations, or individuals.  For example, instead of just saying an animal is "large" or has a "long beak," researchers gather exact, standardized measurements. (Ask Gemini in Chrome Browser)
 - **Genera.**  Plural form of the word genus.  In biology, a genus is a rank in the classification system used to group closely related species.  It sits right above "species" and right below "family" (family عائلة أو فصيلة -> genera حنس -> species نوع).  You can think of genus as a "last name" for organisms.  When you see a scientific name, the first word is the genus (and it is always capitalized), while the second word is the specific species.  For example, *Aptenodytes* is a genus that includes **large** penguins like the *Emperor* penguin (scientific name: *Aptenodytes forsteri*) and the *King* penguin (scientific name: *Aptenodytes patagonicus*) while Eudyptes is a genus that includes **crested** penguins, like the *Macaroni* penguin (scientific name: *Eudyptes chrysolophus*). (Ask Gemini in Chrome Browser)
 
-## Data
+
+## EDA
 
 ```{r}
+#| include: true
 #| eval: true
 
 library(tidytuesdayR)
@@ -36,16 +35,30 @@ if(file.exists(local_file)) {
 }
 ```
 
-
 ```{r}
+#| include: true
 #| eval: true
+#| results: asis
 
-library(skimr)
+library(summarytools)
 library(purrr)
 
 iwalk(data260714, function(df, name) {
-    cat("\n\n###", name, "\n\n")
-    skim(df) |> print()
-})
+  cat("\n###", name, "(", nrow(df), "," , ncol(df), ")\n")
 
+
+  dfSummary(
+    df,
+    plain.ascii = FALSE,
+    style = "grid",
+    graph.magnif = 0.82,
+    varnumbers = FALSE,
+    valid.col = FALSE,
+    temp.img.dir = "tmp",
+    round.digits = 2,
+    headings = FALSE,
+    display.labels = FALSE
+  ) |>
+    print()
+})
 ```
