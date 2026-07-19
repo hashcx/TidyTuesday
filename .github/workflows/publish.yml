@@ -38,7 +38,8 @@ jobs:
             libfreetype6-dev \
             libpng-dev \
             libtiff5-dev \
-            libjpeg-dev
+            libjpeg-dev \
+            libmagick++-dev
 
       - name: Cache renv packages
         uses: actions/cache@v4
