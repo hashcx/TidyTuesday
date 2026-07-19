@@ -1,27 +1,27 @@
 ---
 title: "Week 27: UFC Athletes and Fight Data"
 date: 2026-07-07
-description: "First challenge, a lot of setup and exploration.  Incomplete."
+description: "Setup + explore EDA options"
 categories: [fightr, sport]
 draft: false
-execute:
-  warning: false
-  message: false
 ---
 
 [Challenge Page on GitHub](https://github.com/rfordatascience/tidytuesday/tree/main/data/2026/2026-07-07)
 
-## `fightr` Package
+## Explore `fightr` Package
 
 ```{r}
+#| include: true
 #| eval: true
 
 library(fightr)
 ```
 
-Trying the code examples on the [fightr package GitHub page](https://github.com/benyamindsmith/fightr/)
+Trying [package](https://github.com/benyamindsmith/fightr/) code examples.
 
+Read data
 ```{r}
+#| include: true
 #| eval: true
 
 # Loads from local cache, fetching updates automatically if needed
@@ -32,8 +32,9 @@ fights <- get_ufc_data("ufc_fights")
 update_all_ufc_data()
 ```
 
-
+Estimation Method 1: `bradley-terry`
 ```{r}
+#| include: true
 #| eval: true
 
 matchup_model <- model_fight_outcome(
@@ -49,8 +50,9 @@ print(matchup_model$method_probs)
 matchup_model$plot
 ```
 
-
+Estimation Method 2: `multinomial`
 ```{r}
+#| include: true
 #| eval: true
 
 matchup_model <- model_fight_outcome(
@@ -66,8 +68,9 @@ print(matchup_model$method_probs)
 matchup_model$plot
 ```
 
-
+Estimation Method 2: `thurstone-mosteller`
 ```{r}
+#| include: true
 #| eval: true
 
 matchup_model <- model_fight_outcome(
@@ -83,20 +86,15 @@ print(matchup_model$method_probs)
 matchup_model$plot
 ```
 
-### Probability Charts
+**Probability Charts.** The three probability charts shows that the probability that Alexander Volkanovski wins Islam Makhachev using KO/TKO is ~22%, using Submission is no more than 6%, and using Decision is ~20%.
 
-The three probability charts shows that the probability that Alexander Volkanovski wins Islam Makhachev using KO/TKO is ~22%, using Submission is no more than 6%, and using Decision is ~20%.
-
-### Technical Details
-
-The function `get_ufc_data` exists in [`R/update_ufc_data.R`](https://github.com/benyamindsmith/fightr/blob/main/R/update_ufc_data.R).  The function reads data stored as `RData` from [`data/`](https://github.com/benyamindsmith/fightr/tree/main/data).  These files get downloaded and cleaned via a set of `Shell`, `R` and `Python` scripts stored in [`scripts/`](https://github.com/benyamindsmith/fightr/tree/main/scripts).  These scripts are executed periodically using GitHub workflow actions as specified in the `yml` files in [`.github/workflows/`](https://github.com/benyamindsmith/fightr/tree/main/.github/workflows).
+**Technical Details.**  The function `get_ufc_data` exists in [`R/update_ufc_data.R`](https://github.com/benyamindsmith/fightr/blob/main/R/update_ufc_data.R).  The function reads data stored as `RData` from [`data/`](https://github.com/benyamindsmith/fightr/tree/main/data).  These files get downloaded and cleaned via a set of `Shell`, `R` and `Python` scripts stored in [`scripts/`](https://github.com/benyamindsmith/fightr/tree/main/scripts).  These scripts are executed periodically using GitHub workflow actions as specified in the `yml` files in [`.github/workflows/`](https://github.com/benyamindsmith/fightr/tree/main/.github/workflows).
 
 
-## TidyTuesday Data
-
-The challenge include 5 datasets.
+## EDA
 
 ```{r}
+#| include: true
 #| eval: true
 
 local_file <- "data260707_cached.rds"
@@ -110,56 +108,18 @@ if(file.exists(local_file)) {
     saveRDS(data260707, file = local_file)
     message("Data downloaded and saved locally!")
 }
-
-data260707_small <- data260707$ufc_athletes
 ```
 
-### EDA
-
 ```{r}
+#| include: true
 #| eval: true
-#| output: asis
-
-library(purrr)
-library(inspectdf)
-
-iwalk(data260707, function(df, name) {
-    cat("\n\n####", name, "(", nrow(df), "," , ncol(df), ")\n")
-
-    df |> inspect_types() |> show_plot() |> print()
-    df |> inspect_cat() |> show_plot() |> print()
-    df |> inspect_num() |> show_plot() |> print()
-})
-```
-
-```{r}
-#| eval: false
-
-library(dplyr)
-library(tidyselect)
-library(purrr)
-library(GGally)
-
-iwalk(data260707, function(df, name) {
-    cat("####", name, row(df), "," , col(df), "\n")
-
-    df_safe <- df |> 
-        select(where(~ is.numeric(.) || (is.character(.) && n_distinct(.) <= 15)))
-
-    ggpairs(df_safe) |> print()    
-})
-```
-
-
-```{r}
-#| eval: false
 #| results: asis
 
 library(summarytools)
 library(purrr)
 
 iwalk(data260707, function(df, name) {
-  cat("####", name, row(df), "," , col(df), "\n")
+  cat("\n\n###", name, "(" , nrow(df), "," , ncol(df), ")\n")
 
 
   dfSummary(
