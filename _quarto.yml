@@ -5,6 +5,8 @@ project:
 
 execute:
   freeze: auto
+  warning: false
+  error: false
 
 website:
   title: "Amin G. Alhashim"
