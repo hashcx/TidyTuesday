@@ -41,18 +41,11 @@ jobs:
             libjpeg-dev \
             libmagick++-dev
 
-      - name: Cache renv packages
-        uses: actions/cache@v4
+      # # From: https://quarto.org/docs/publishing/github-pages.html#github-action
+      - name: Install Required R Packages from revn.lock
+        uses: r-lib/actions/setup-renv@v2
         with:
-          path: ~/.cache/R/renv
-          key: renv-${{ hashFiles('renv.lock') }}
-          restore-keys: renv-
-
-      - name: Restore R packages
-        run: |
-          install.packages("renv")
-          renv::restore()
-        shell: Rscript {0}
+          cache-version: 1
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
