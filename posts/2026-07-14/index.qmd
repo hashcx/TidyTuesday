@@ -2,7 +2,7 @@
 title: "Week 28: Many Penguins"
 date: 2026-07-14
 description: "More setup + explore EDA options"
-categories: [biology]
+categories: [zoology]
 draft: false
 ---
 
