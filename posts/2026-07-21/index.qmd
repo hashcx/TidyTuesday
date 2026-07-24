@@ -2,57 +2,46 @@
 title: "Week 29: Near-Death Experiences (NDERF)"
 date: 2026-07-21
 description: "TBD"
-categories: [zoology]
+categories: []
 draft: false
 ---
 
-[Challenge Page on GitHub](https://github.com/rfordatascience/tidytuesday/tree/main/data/2026/2026-07-21)
+```{r}
+#| include: false
+
+week = rmarkdown::metadata$date
+```
+
+```{r}
+#| include: false
+#| eval: true
+
+source("../../scripts/md.R")
+```
+
+```{r}
+#| output: asis
+#| echo: false
+
+generateTtLink(week)
+```
+
 
 ## EDA
 
 ```{r}
-#| include: true
+#| include: false
 #| eval: true
 
-library(tidytuesdayR)
-
-local_file <- "data260721_cached.rds"
-
-if(file.exists(local_file)) {
-    message("Found local file! Loading cached data...")
-    data260721 <- readRDS(local_file)
-} else {
-    message("Local file not found. Downloading from internet...")
-    data260721 <- tidytuesdayR::tt_load('2026-07-21')
-    saveRDS(data260721, file = local_file)
-    message("Data downloaded and saved locally!")
-}
+source("../../scripts/qread.R")
+data <- qread(week = week)
 ```
 
 ```{r}
-#| include: true
+#| echo: false
 #| eval: true
 #| results: asis
 
-library(summarytools)
-library(purrr)
-
-iwalk(data260721, function(df, name) {
-  cat("\n###", name, "(", nrow(df), "," , ncol(df), ")\n")
-
-
-  dfSummary(
-    df,
-    plain.ascii = FALSE,
-    style = "grid",
-    graph.magnif = 0.82,
-    varnumbers = FALSE,
-    valid.col = FALSE,
-    temp.img.dir = "tmp",
-    round.digits = 2,
-    headings = FALSE,
-    display.labels = FALSE
-  ) |>
-    print()
-})
+source("../../scripts/viz.R")
+viz(data = data)
 ```

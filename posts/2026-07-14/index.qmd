@@ -6,7 +6,25 @@ categories: [zoology]
 draft: false
 ---
 
-[Challenge Page on GitHub](https://github.com/rfordatascience/tidytuesday/tree/main/data/2026/2026-07-14)
+```{r}
+#| include: false
+
+week = rmarkdown::metadata$date
+```
+
+```{r}
+#| include: false
+#| eval: true
+
+source("../../scripts/md.R")
+```
+
+```{r}
+#| output: asis
+#| echo: false
+
+generateTtLink(week)
+```
 
 ## Terms
 
@@ -16,49 +34,21 @@ draft: false
 
 ## EDA
 
+
 ```{r}
-#| include: true
+#| include: false
 #| eval: true
 
-library(tidytuesdayR)
-
-local_file <- "data260714_cached.rds"
-
-if(file.exists(local_file)) {
-    message("Found local file! Loading cached data...")
-    data260714 <- readRDS(local_file)
-} else {
-    message("Local file not found. Downloading from internet...")
-    data260714 <- tidytuesdayR::tt_load('2026-07-14')
-    saveRDS(data260714, file = local_file)
-    message("Data downloaded and saved locally!")
-}
+source("../../scripts/qread.R")
+data <- qread(week = week)
 ```
 
 ```{r}
-#| include: true
+#| echo: false
 #| eval: true
 #| results: asis
 
-library(summarytools)
-library(purrr)
-
-iwalk(data260714, function(df, name) {
-  cat("\n###", name, "(", nrow(df), "," , ncol(df), ")\n")
-
-
-  dfSummary(
-    df,
-    plain.ascii = FALSE,
-    style = "grid",
-    graph.magnif = 0.82,
-    varnumbers = FALSE,
-    valid.col = FALSE,
-    temp.img.dir = "tmp",
-    round.digits = 2,
-    headings = FALSE,
-    display.labels = FALSE
-  ) |>
-    print()
-})
+source("../../scripts/viz.R")
+viz(data = data)
 ```
+

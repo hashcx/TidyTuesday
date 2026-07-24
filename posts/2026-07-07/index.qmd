@@ -6,7 +6,27 @@ categories: [fightr, sport]
 draft: false
 ---
 
-[Challenge Page on GitHub](https://github.com/rfordatascience/tidytuesday/tree/main/data/2026/2026-07-07)
+```{r}
+#| include: false
+
+week = rmarkdown::metadata$date
+week = "2026-07-07"
+```
+
+```{r}
+#| include: false
+#| eval: true
+
+source("../../scripts/md.R")
+```
+
+```{r}
+#| output: asis
+#| echo: false
+
+generateTtLink(week)
+```
+
 
 ## Explore `fightr` Package
 
@@ -94,46 +114,18 @@ matchup_model$plot
 ## EDA
 
 ```{r}
-#| include: true
+#| include: false
 #| eval: true
 
-local_file <- "data260707_cached.rds"
-
-if(file.exists(local_file)) {
-    message("Found local file! Loading cached data...")
-    data260707 <- readRDS(local_file)
-} else {
-    message("Local file not found. Downloading from internet...")
-    data260707 <- tidytuesdayR::tt_load('2026-07-07')
-    saveRDS(data260707, file = local_file)
-    message("Data downloaded and saved locally!")
-}
+source("../../scripts/qread.R")
+data <- qread(week = week)
 ```
 
 ```{r}
-#| include: true
+#| echo: false
 #| eval: true
 #| results: asis
 
-library(summarytools)
-library(purrr)
-
-iwalk(data260707, function(df, name) {
-  cat("\n\n###", name, "(" , nrow(df), "," , ncol(df), ")\n")
-
-
-  dfSummary(
-    df,
-    plain.ascii = FALSE,
-    style = "grid",
-    graph.magnif = 0.82,
-    varnumbers = FALSE,
-    valid.col = FALSE,
-    temp.img.dir = "/tmp",
-    round.digits = 2,
-    headings = FALSE,
-    display.labels = FALSE
-  ) |>
-    print()
-})
+source("../../scripts/viz.R")
+viz(data = data)
 ```
