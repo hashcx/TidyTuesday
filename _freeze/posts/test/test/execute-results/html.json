@@ -1,0 +1,15 @@
+{
+  "hash": "3a65e36e603dd551e1890e1e9947cee3",
+  "result": {
+    "engine": "knitr",
+    "markdown": "\n\n\n\n\n```{.r .cell-code}\ngenerateTtLink(week)\n```\n\n[Challenge Page on GitHub](https://github.com/rfordatascience/tidytuesday/tree/main/data/2026/2026-07-07",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
